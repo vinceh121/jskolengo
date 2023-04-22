@@ -1,11 +1,14 @@
 package me.vinceh121.jskolengo.entities;
 
+import java.util.List;
+
 import com.github.jasminb.jsonapi.annotations.Type;
 
 @Type("school")
 public class School extends AbstractSkolengoEntity {
 	private String name, addressLine1, addressLine2, addressLine3, zipCode, city, country, homePageUrl, emsCode,
 			emsOIDCWellKnownUrl;
+	private Double distance;
 
 	public String getName() {
 		return name;
@@ -13,6 +16,10 @@ public class School extends AbstractSkolengoEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<String> getAddressLines() {
+		return List.of(this.getAddressLine1(), this.getAddressLine2(), this.getAddressLine3());
 	}
 
 	public String getAddressLine1() {
@@ -85,6 +92,14 @@ public class School extends AbstractSkolengoEntity {
 
 	public void setEmsOIDCWellKnownUrl(String emsOIDCWellKnownUrl) {
 		this.emsOIDCWellKnownUrl = emsOIDCWellKnownUrl;
+	}
+
+	public Double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(Double distance) {
+		this.distance = distance;
 	}
 
 	@Override
