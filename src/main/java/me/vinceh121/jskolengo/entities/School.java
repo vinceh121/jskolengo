@@ -7,7 +7,7 @@ import com.github.jasminb.jsonapi.annotations.Type;
 @Type("school")
 public class School extends AbstractSkolengoEntity {
 	private String name, addressLine1, addressLine2, addressLine3, zipCode, city, country, homePageUrl, emsCode,
-			emsOIDCWellKnownUrl;
+			emsOIDCWellKnownUrl, timeZone;
 	private Double distance;
 
 	public String getName() {
@@ -92,6 +92,14 @@ public class School extends AbstractSkolengoEntity {
 
 	public void setEmsOIDCWellKnownUrl(String emsOIDCWellKnownUrl) {
 		this.emsOIDCWellKnownUrl = emsOIDCWellKnownUrl;
+	}
+
+	public String getTimeZone() {
+		return timeZone;
+	}
+
+	public void setTimeZone(String timeZone) {
+		this.timeZone = timeZone;
 	}
 
 	public Double getDistance() {
