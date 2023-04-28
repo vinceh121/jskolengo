@@ -11,7 +11,8 @@ import me.vinceh121.jskolengo.entities.people.OtherPerson;
 import me.vinceh121.jskolengo.entities.people.Teacher;
 
 public final class SkolengoConstants {
-	public static final String BASE_URL = "https://api.skolengo.com/api/v1/bff-sko-app";
+	public static final String BASE_URL = "https://api.skolengo.com/api/v1/bff-sko-app", PROD_VIRT_HOST = "bff-prod-ha",
+			PROD_HOST = "api.skolengo.com";
 	public static final Class<?>[] ENTITY_CLASSES = new Class<?>[] {
 			School.class,
 			SkoAppConfig.class,

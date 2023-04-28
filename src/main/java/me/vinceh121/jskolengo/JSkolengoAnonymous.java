@@ -16,6 +16,7 @@ import com.github.jasminb.jsonapi.ResourceConverter;
 
 import me.vinceh121.jskolengo.entities.School;
 import me.vinceh121.jskolengo.entities.SkoAppConfig;
+import me.vinceh121.jskolengo.pagination.JSONAPIPaginatedCollection;
 
 public class JSkolengoAnonymous extends AbstractSkolengo {
 	public JSkolengoAnonymous() {
@@ -40,6 +41,10 @@ public class JSkolengoAnonymous extends AbstractSkolengo {
 		}
 	}
 
+	public JSONAPIPaginatedCollection<School> searchSchools(double lat, double lon) {
+		return new JSONAPIPaginatedCollection<School>((limit, offset) -> searchSchools(lat, lon, limit, offset));
+	}
+
 	public JSONAPIDocument<List<School>> searchSchools(double lat, double lon, int limit, int offset)
 			throws IOException {
 		try {
@@ -53,6 +58,10 @@ public class JSkolengoAnonymous extends AbstractSkolengo {
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e); // shouldn't happen
 		}
+	}
+
+	public JSONAPIPaginatedCollection<School> searchSchools(String text) {
+		return new JSONAPIPaginatedCollection<School>((limit, offset) -> searchSchools(text, limit, offset));
 	}
 
 	public JSONAPIDocument<List<School>> searchSchools(String text, int limit, int offset) throws IOException {
