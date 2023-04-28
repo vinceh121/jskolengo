@@ -30,17 +30,14 @@ public class JSkolengo extends JSkolengoAnonymous {
 		super(client, mapper);
 	}
 
-	public JSONAPIDocument<List<News>> fetchSchoolInfo(int limit, int offset) throws IOException {
-		return this.fetchSchoolInfo(limit, offset,
+	public JSONAPIDocument<List<News>> fetchSchoolInfo() throws IOException {
+		return this.fetchSchoolInfo(
 				List.of("illustration", "school", "author", "author.person", "author.technicalUser", "attachments"));
 	}
 
-	public JSONAPIDocument<List<News>> fetchSchoolInfo(int limit, int offset, Collection<String> include)
-			throws IOException {
+	public JSONAPIDocument<List<News>> fetchSchoolInfo(Collection<String> include) throws IOException {
 		try {
 			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/schools-info")
-					.addParameter("page[limit]", String.valueOf(limit))
-					.addParameter("page[offset]", String.valueOf(offset))
 					.addParameter("include", String.join(",", include));
 			HttpGet get = new HttpGet(build.build());
 			this.addHeaders(get);
