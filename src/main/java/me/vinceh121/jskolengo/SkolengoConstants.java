@@ -1,14 +1,14 @@
 package me.vinceh121.jskolengo;
 
-import me.vinceh121.jskolengo.entities.News;
-import me.vinceh121.jskolengo.entities.NonTeachingStaff;
-import me.vinceh121.jskolengo.entities.OtherPerson;
 import me.vinceh121.jskolengo.entities.School;
-import me.vinceh121.jskolengo.entities.SchoolInfoAuthor;
-import me.vinceh121.jskolengo.entities.SchoolInfoFile;
-import me.vinceh121.jskolengo.entities.SchoolInfoTechnicalUser;
 import me.vinceh121.jskolengo.entities.SkoAppConfig;
-import me.vinceh121.jskolengo.entities.Teacher;
+import me.vinceh121.jskolengo.entities.info.News;
+import me.vinceh121.jskolengo.entities.info.SchoolInfoAuthor;
+import me.vinceh121.jskolengo.entities.info.SchoolInfoFile;
+import me.vinceh121.jskolengo.entities.info.SchoolInfoTechnicalUser;
+import me.vinceh121.jskolengo.entities.people.NonTeachingStaff;
+import me.vinceh121.jskolengo.entities.people.OtherPerson;
+import me.vinceh121.jskolengo.entities.people.Teacher;
 
 public final class SkolengoConstants {
 	public static final String BASE_URL = "https://api.skolengo.com/api/v1/bff-sko-app";

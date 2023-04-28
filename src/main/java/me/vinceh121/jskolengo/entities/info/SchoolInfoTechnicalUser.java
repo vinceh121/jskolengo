@@ -1,6 +1,8 @@
-package me.vinceh121.jskolengo.entities;
+package me.vinceh121.jskolengo.entities.info;
 
 import com.github.jasminb.jsonapi.annotations.Type;
+
+import me.vinceh121.jskolengo.entities.AbstractSkolengoEntity;
 
 @Type("schoolInfoTechnicalUser")
 public class SchoolInfoTechnicalUser extends AbstractSkolengoEntity {

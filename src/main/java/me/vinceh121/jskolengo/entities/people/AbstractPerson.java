@@ -1,6 +1,8 @@
-package me.vinceh121.jskolengo.entities;
+package me.vinceh121.jskolengo.entities.people;
 
 import com.github.jasminb.jsonapi.annotations.Type;
+
+import me.vinceh121.jskolengo.entities.AbstractSkolengoEntity;
 
 // not sure what's the actual JSONAPI type name for this one, so prefixing with x- for now
 // on top of that, jsonapi-converter requires there to be a Type annotation for classes used for relationships

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jasminb.jsonapi.JSONAPIDocument;
 import com.github.jasminb.jsonapi.ResourceConverter;
 
-import me.vinceh121.jskolengo.entities.News;
+import me.vinceh121.jskolengo.entities.info.News;
 
 public class JSkolengo extends JSkolengoAnonymous {
 	private String bearerToken, schoolId, emsCode, dateFormat = "utc";

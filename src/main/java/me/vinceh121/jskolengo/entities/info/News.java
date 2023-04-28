@@ -1,9 +1,12 @@
-package me.vinceh121.jskolengo.entities;
+package me.vinceh121.jskolengo.entities.info;
 
 import java.time.ZonedDateTime;
 
 import com.github.jasminb.jsonapi.annotations.Relationship;
 import com.github.jasminb.jsonapi.annotations.Type;
+
+import me.vinceh121.jskolengo.entities.AbstractSkolengoEntity;
+import me.vinceh121.jskolengo.entities.School;
 
 @Type("news")
 public class News extends AbstractSkolengoEntity {

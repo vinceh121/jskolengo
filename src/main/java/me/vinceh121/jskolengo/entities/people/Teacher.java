@@ -1,4 +1,4 @@
-package me.vinceh121.jskolengo.entities;
+package me.vinceh121.jskolengo.entities.people;
 
 import com.github.jasminb.jsonapi.annotations.Type;
 
