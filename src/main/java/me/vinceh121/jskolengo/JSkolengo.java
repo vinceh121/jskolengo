@@ -2,8 +2,10 @@ package me.vinceh121.jskolengo;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jasminb.jsonapi.JSONAPIDocument;
 import com.github.jasminb.jsonapi.ResourceConverter;
 
+import me.vinceh121.jskolengo.entities.JWTPayload;
 import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.info.News;
 
@@ -64,6 +67,13 @@ public class JSkolengo extends JSkolengoAnonymous {
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e); // shouldn't happen
 		}
+	}
+
+	public JWTPayload readPayload() throws IOException {
+		String[] parts = this.bearerToken.split(Pattern.quote("."));
+		String payloadB64 = parts[1];
+		byte[] payload = Base64.getDecoder().decode(payloadB64);
+		return this.mapper.readValue(payload, JWTPayload.class);
 	}
 
 	private void addHeaders(HttpRequest req) {
