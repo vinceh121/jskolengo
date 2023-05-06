@@ -2,6 +2,7 @@ package me.vinceh121.jskolengo;
 
 import me.vinceh121.jskolengo.entities.School;
 import me.vinceh121.jskolengo.entities.SkoAppConfig;
+import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.info.News;
 import me.vinceh121.jskolengo.entities.info.SchoolInfoAuthor;
 import me.vinceh121.jskolengo.entities.info.SchoolInfoFile;
@@ -22,5 +23,6 @@ public final class SkolengoConstants {
 			Teacher.class,
 			SchoolInfoAuthor.class,
 			SchoolInfoTechnicalUser.class,
-			SchoolInfoFile.class };
+			SchoolInfoFile.class,
+			StudentUserInfo.class };
 }

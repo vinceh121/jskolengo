@@ -1,11 +1,13 @@
 package me.vinceh121.jskolengo.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.jasminb.jsonapi.annotations.Type;
 
 @Type("school")
 public class School extends AbstractSkolengoEntity {
+	private final List<Service> subscribedServices = new ArrayList<>();
 	private String name, addressLine1, addressLine2, addressLine3, zipCode, city, country, homePageUrl, emsCode,
 			emsOIDCWellKnownUrl, timeZone;
 	private Double distance;
@@ -108,6 +110,10 @@ public class School extends AbstractSkolengoEntity {
 
 	public void setDistance(Double distance) {
 		this.distance = distance;
+	}
+
+	public List<Service> getSubscribedServices() {
+		return subscribedServices;
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.jasminb.jsonapi.JSONAPIDocument;
 import com.github.jasminb.jsonapi.ResourceConverter;
 
+import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.info.News;
 
 public class JSkolengo extends JSkolengoAnonymous {
@@ -28,6 +29,24 @@ public class JSkolengo extends JSkolengoAnonymous {
 
 	public JSkolengo(CloseableHttpClient client, ObjectMapper mapper) {
 		super(client, mapper);
+	}
+
+	public JSONAPIDocument<StudentUserInfo> fetchUserInfo(String userId) throws IOException {
+		return this.fetchUserInfo(userId, List.of("school", "students", "students.school"));
+	}
+
+	public JSONAPIDocument<StudentUserInfo> fetchUserInfo(String userId, Collection<String> include)
+			throws IOException {
+		try {
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/users-info/")
+					.appendPath(userId)
+					.addParameter("includes", String.join(",", include));
+			HttpGet get = new HttpGet(build.build());
+			this.addHeaders(get);
+			return this.requestDocument(get, StudentUserInfo.class);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public JSONAPIDocument<List<News>> fetchSchoolInfo() throws IOException {
