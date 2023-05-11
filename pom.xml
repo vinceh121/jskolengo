@@ -2,10 +2,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>me.vinceh121</groupId>
-	<artifactId>jskolengo</artifactId>
+	<groupId>me.vinceh121.jskolengo</groupId>
+	<artifactId>all</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>jskolengo</name>
+	<packaging>pom</packaging>
 	<description>Java API wrapper for the new Skolengo API</description>
 
 	<properties>
@@ -14,41 +15,7 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<jackson.version>2.15.0</jackson.version>
 	</properties>
-
-	<dependencies>
-		<!--
-		https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
-		<dependency>
-			<groupId>org.apache.httpcomponents.client5</groupId>
-			<artifactId>httpclient5</artifactId>
-			<version>5.2.1</version>
-		</dependency>
-		<!--
-		https://mvnrepository.com/artifact/com.github.jasminb/jsonapi-converter -->
-		<dependency>
-			<groupId>com.github.jasminb</groupId>
-			<artifactId>jsonapi-converter</artifactId>
-			<version>0.12</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.squareup.retrofit2</groupId>
-					<artifactId>retrofit</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!--
-		https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-		<!--
-		https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-jsr310</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>wrapper</module>
+	</modules>
 </project>
