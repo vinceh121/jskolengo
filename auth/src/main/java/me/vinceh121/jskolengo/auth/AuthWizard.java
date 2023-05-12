@@ -24,6 +24,7 @@ import org.cef.browser.CefFrame;
 import org.cef.browser.CefMessageRouter;
 import org.cef.handler.CefLoadHandlerAdapter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.nimbusds.oauth2.sdk.AuthorizationCode;
 import com.nimbusds.oauth2.sdk.AuthorizationCodeGrant;
@@ -54,6 +55,7 @@ import me.vinceh121.jskolengo.SkolengoConstants;
 
 public class AuthWizard extends JDialog {
 	private static final long serialVersionUID = 3438454344613099083L;
+	private final ObjectMapper mapper = new ObjectMapper();
 	private final JSkolengo skolengo;
 	private final HttpClient client;
 	private final JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.TRAILING));
@@ -213,7 +215,8 @@ public class AuthWizard extends JDialog {
 
 		OIDCTokenResponse sucRes = (OIDCTokenResponse) res.toSuccessResponse();
 		this.tokens = sucRes.getOIDCTokens();
-		this.txtTokens.setText(this.tokens.toJSONObject().toJSONString());
+		this.txtTokens.setText(this.mapper.readTree(this.tokens.toJSONObject().toJSONString()).toPrettyString()); // dirty
+																													// shit
 
 		this.nextStep();
 	}
