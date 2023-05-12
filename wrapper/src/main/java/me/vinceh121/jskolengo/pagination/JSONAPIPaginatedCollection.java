@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.github.jasminb.jsonapi.JSONAPIDocument;
+import com.github.jasminb.jsonapi.models.errors.Error;
 
 public class JSONAPIPaginatedCollection<T> implements Iterable<T> {
 	private final PageFetcher<JSONAPIDocument<List<T>>> fetcher;
@@ -30,8 +31,16 @@ public class JSONAPIPaginatedCollection<T> implements Iterable<T> {
 		public PaginatedIterator() {
 			try {
 				this.currentCollection = fetcher.fetchPage(batchSize, 0);
+				this.checkError();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
+			}
+		}
+
+		private void checkError() {
+			List<? extends Error> errs = (List<? extends Error>) this.currentCollection.getErrors();
+			if (errs != null && errs.size() != 0) {
+				throw new RuntimeException(errs.toString());
 			}
 		}
 
@@ -50,6 +59,7 @@ public class JSONAPIPaginatedCollection<T> implements Iterable<T> {
 				} else {
 					currentPage++;
 					currentCollection = fetcher.fetchPage(batchSize, currentPage * batchSize);
+					this.checkError();
 					currentLocalIndex = 1; // prevent duplicates
 					return currentCollection.get().get(0);
 				}
