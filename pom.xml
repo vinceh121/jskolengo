@@ -13,9 +13,9 @@
 		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<jackson.version>2.15.0</jackson.version>
 	</properties>
 	<modules>
 		<module>wrapper</module>
+		<module>auth</module>
 	</modules>
 </project>

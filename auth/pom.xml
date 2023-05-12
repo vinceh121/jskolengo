@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>auth</artifactId>
+	<name>jskolengo-auth</name>
+	<description>UI components related to Skolengo authn/authz</description>
+
+	<parent>
+		<groupId>me.vinceh121.jskolengo</groupId>
+		<artifactId>all</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<java.version>11</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<cef.version>jcef-544024e+cef-95.7.14+g9f72f35+chromium-95.0.4638.69</cef.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>me.vinceh121.jskolengo</groupId>
+			<artifactId>wrapper</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.nimbusds/oauth2-oidc-sdk -->
+		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>oauth2-oidc-sdk</artifactId>
+			<version>10.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.formdev</groupId>
+			<artifactId>flatlaf</artifactId>
+			<version>3.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/me.friwi/jcefmaven -->
+		<dependency>
+			<groupId>me.friwi</groupId>
+			<artifactId>jcefmaven</artifactId>
+			<version>110.0.25</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/me.friwi/jcef-api -->
+		<dependency>
+			<groupId>me.friwi</groupId>
+			<artifactId>jcef-api</artifactId>
+			<version>${cef.version}</version>
+		</dependency>
+	</dependencies>
+</project>
+
