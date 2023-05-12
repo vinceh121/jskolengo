@@ -3,6 +3,10 @@ package me.vinceh121.jskolengo;
 import me.vinceh121.jskolengo.entities.School;
 import me.vinceh121.jskolengo.entities.SkoAppConfig;
 import me.vinceh121.jskolengo.entities.StudentUserInfo;
+import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.agenda.Homework;
+import me.vinceh121.jskolengo.entities.agenda.Lesson;
+import me.vinceh121.jskolengo.entities.agenda.Subject;
 import me.vinceh121.jskolengo.entities.info.News;
 import me.vinceh121.jskolengo.entities.info.SchoolInfoAuthor;
 import me.vinceh121.jskolengo.entities.info.SchoolInfoFile;
@@ -26,5 +30,9 @@ public final class SkolengoConstants {
 			SchoolInfoAuthor.class,
 			SchoolInfoTechnicalUser.class,
 			SchoolInfoFile.class,
-			StudentUserInfo.class };
+			StudentUserInfo.class,
+			Agenda.class,
+			Homework.class,
+			Lesson.class,
+			Subject.class };
 }

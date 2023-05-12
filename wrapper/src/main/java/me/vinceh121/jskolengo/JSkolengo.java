@@ -2,6 +2,7 @@ package me.vinceh121.jskolengo;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +19,9 @@ import com.github.jasminb.jsonapi.ResourceConverter;
 
 import me.vinceh121.jskolengo.entities.JWTPayload;
 import me.vinceh121.jskolengo.entities.StudentUserInfo;
+import me.vinceh121.jskolengo.entities.agenda.Agenda;
 import me.vinceh121.jskolengo.entities.info.News;
+import me.vinceh121.jskolengo.pagination.JSONAPIPaginatedCollection;
 
 public class JSkolengo extends JSkolengoAnonymous {
 	private String bearerToken, schoolId, emsCode, dateFormat = "utc";
@@ -34,6 +37,36 @@ public class JSkolengo extends JSkolengoAnonymous {
 		super(client, mapper);
 	}
 
+	public JSONAPIPaginatedCollection<Agenda> fetchAgendas(String userId, LocalDate start, LocalDate end) {
+		return new JSONAPIPaginatedCollection<>(
+				(limit, offset) -> this.fetchAgendas(userId, start, end, limit, offset, List.of("lessons",
+						"lessons.subject", "lessons.teachers", "homeworkAssignments", "homeworkAssignments.subject")));
+	}
+
+	public JSONAPIPaginatedCollection<Agenda> fetchAgendas(String userId, LocalDate start, LocalDate end,
+			Collection<String> include) {
+		return new JSONAPIPaginatedCollection<>(
+				(limit, offset) -> this.fetchAgendas(userId, start, end, limit, offset, include));
+	}
+
+	public JSONAPIDocument<List<Agenda>> fetchAgendas(String userId, LocalDate start, LocalDate end, int limit,
+			int offset, Collection<String> include) throws IOException {
+		try {
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/agendas")
+					.addParameter("include", String.join(",", include))
+					.addParameter("filter[student.id]", userId)
+					.addParameter("filter[date][GE]", start.toString())
+					.addParameter("filter[date][LE]", end.toString())
+					.addParameter("page[limit]", Integer.toString(limit))
+					.addParameter("page[offset]", Integer.toString(offset));
+			HttpGet get = new HttpGet(build.build());
+			this.addHeaders(get);
+			return this.requestDocumentCollection(get, Agenda.class);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public JSONAPIDocument<StudentUserInfo> fetchUserInfo(String userId) throws IOException {
 		return this.fetchUserInfo(userId, List.of("school", "students", "students.school"));
 	}
@@ -43,7 +76,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 		try {
 			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/users-info/")
 					.appendPath(userId)
-					.addParameter("includes", String.join(",", include));
+					.addParameter("include", String.join(",", include));
 			HttpGet get = new HttpGet(build.build());
 			this.addHeaders(get);
 			return this.requestDocument(get, StudentUserInfo.class);
