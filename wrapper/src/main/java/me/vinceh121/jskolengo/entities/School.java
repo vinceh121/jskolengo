@@ -3,6 +3,7 @@ package me.vinceh121.jskolengo.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.jasminb.jsonapi.annotations.Type;
 
 @Type("school")
@@ -20,8 +21,13 @@ public class School extends AbstractSkolengoEntity {
 		this.name = name;
 	}
 
+	@JsonIgnore
 	public List<String> getAddressLines() {
-		return List.of(this.getAddressLine1(), this.getAddressLine2(), this.getAddressLine3());
+		List<String> lst = new ArrayList<>();
+		lst.add(this.addressLine1);
+		lst.add(this.addressLine2);
+		lst.add(this.addressLine3);
+		return lst;
 	}
 
 	public String getAddressLine1() {
