@@ -3,6 +3,7 @@ package me.vinceh121.jskolengo.pagination;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.github.jasminb.jsonapi.JSONAPIDocument;
 import com.github.jasminb.jsonapi.models.errors.Error;
@@ -18,6 +19,17 @@ public class JSONAPIPaginatedCollection<T> implements Iterable<T> {
 	@Override
 	public Iterator<T> iterator() {
 		return new PaginatedIterator();
+	}
+
+	public Stream<T> stream() {
+		Iterator<T> iter = this.iterator();
+		return Stream.generate(() -> {
+			if (iter.hasNext()) {
+				return iter.next();
+			} else {
+				return null;
+			}
+		});
 	}
 
 	private class PaginatedIterator implements Iterator<T> {
@@ -73,7 +85,8 @@ public class JSONAPIPaginatedCollection<T> implements Iterable<T> {
 		return batchSize;
 	}
 
-	public void setBatchSize(int batchSize) {
+	public JSONAPIPaginatedCollection<T> setBatchSize(int batchSize) {
 		this.batchSize = batchSize;
+		return this;
 	}
 }
