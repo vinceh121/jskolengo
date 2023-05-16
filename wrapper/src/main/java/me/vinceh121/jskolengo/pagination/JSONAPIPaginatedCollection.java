@@ -23,13 +23,9 @@ public class JSONAPIPaginatedCollection<T> implements Iterable<T> {
 
 	public Stream<T> stream() {
 		Iterator<T> iter = this.iterator();
-		return Stream.generate(() -> {
-			if (iter.hasNext()) {
-				return iter.next();
-			} else {
-				return null;
-			}
-		});
+		// XXX This usage doesn't respect the hasNext and next contracts since we don't check ordering.
+		// Is this actually liable to cause problems?
+		return Stream.iterate(iter.next(), e -> iter.hasNext(), e -> iter.next());
 	}
 
 	private class PaginatedIterator implements Iterator<T> {
