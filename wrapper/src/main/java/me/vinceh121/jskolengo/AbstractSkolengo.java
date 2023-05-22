@@ -46,6 +46,18 @@ public abstract class AbstractSkolengo implements Closeable, AutoCloseable {
 		return collection;
 	}
 
+	public CloseableHttpClient getClient() {
+		return this.client;
+	}
+
+	public ObjectMapper getMapper() {
+		return this.mapper;
+	}
+
+	public ResourceConverter getConverter() {
+		return this.converter;
+	}
+
 	@Override
 	public void close() throws IOException {
 		this.client.close();

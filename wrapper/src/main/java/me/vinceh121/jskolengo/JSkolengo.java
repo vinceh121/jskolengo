@@ -20,6 +20,7 @@ import com.github.jasminb.jsonapi.ResourceConverter;
 import me.vinceh121.jskolengo.entities.JWTPayload;
 import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.info.News;
 import me.vinceh121.jskolengo.pagination.JSONAPIPaginatedCollection;
 
@@ -35,6 +36,39 @@ public class JSkolengo extends JSkolengoAnonymous {
 
 	public JSkolengo(CloseableHttpClient client, ObjectMapper mapper) {
 		super(client, mapper);
+	}
+
+	public JSONAPIPaginatedCollection<EvaluationsSetting> fetchEvaluationsSetting(String studentId) {
+		return this.fetchEvaluationsSetting(studentId,
+				List.of("periods", "skillsSetting", "skillsSetting.skillAcquisitionColors"));
+	}
+
+	public JSONAPIPaginatedCollection<EvaluationsSetting> fetchEvaluationsSetting(String studentId,
+			Collection<String> includes) {
+		return new JSONAPIPaginatedCollection<>(
+				(limit, offset) -> this.fetchEvaluationsSetting(studentId, limit, offset, includes));
+	}
+
+	public JSONAPIDocument<List<EvaluationsSetting>> fetchEvaluationsSetting(String studentId, int limit, int offset)
+			throws IOException {
+		return this.fetchEvaluationsSetting(studentId, limit, offset,
+				List.of("periods", "skillsSetting", "skillsSetting.skillAcquisitionColors"));
+	}
+
+	public JSONAPIDocument<List<EvaluationsSetting>> fetchEvaluationsSetting(String studentId, int limit, int offset,
+			Collection<String> includes) throws IOException {
+		try {
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/evaluations-settings")
+					.addParameter("filter[student.id]", studentId)
+					.addParameter("page[limit]", Integer.toString(limit))
+					.addParameter("page[offset]", Integer.toString(offset))
+					.addParameter("include", String.join(",", includes));
+			HttpGet get = new HttpGet(build.build());
+			this.addHeaders(get);
+			return this.requestDocumentCollection(get, EvaluationsSetting.class);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public JSONAPIPaginatedCollection<Agenda> fetchAgendas(String userId, LocalDate start, LocalDate end) {
