@@ -20,6 +20,7 @@ import com.github.jasminb.jsonapi.ResourceConverter;
 import me.vinceh121.jskolengo.entities.JWTPayload;
 import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.evaluation.Evaluation;
 import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.info.News;
 import me.vinceh121.jskolengo.pagination.JSONAPIPaginatedCollection;
@@ -41,7 +42,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIPaginatedCollection<EvaluationsSetting> fetchEvaluationsSetting() {
 		return this.fetchEvaluationsSetting(this.readPayload().getSub());
 	}
-	
+
 	public JSONAPIPaginatedCollection<EvaluationsSetting> fetchEvaluationsSetting(String studentId) {
 		return this.fetchEvaluationsSetting(studentId,
 				List.of("periods", "skillsSetting", "skillsSetting.skillAcquisitionColors"));
@@ -70,6 +71,41 @@ public class JSkolengo extends JSkolengoAnonymous {
 			HttpGet get = new HttpGet(build.build());
 			this.addHeaders(get);
 			return this.requestDocumentCollection(get, EvaluationsSetting.class);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public JSONAPIPaginatedCollection<Evaluation> fetchEvaluations(String periodId) {
+		return this.fetchEvaluations(this.readPayload().getSub(), periodId);
+	}
+
+	public JSONAPIPaginatedCollection<Evaluation> fetchEvaluations(String studentId, String periodId) {
+		return this.fetchEvaluations(studentId, periodId,
+				List.of("subject", "evaluations", "evaluations.evaluationResult",
+						"evaluations.evaluationResult.subSkillsEvaluationResults",
+						"evaluations.evaluationResult.subSkillsEvaluationResults.subSkill", "evaluations.subSkills",
+						"teachers"));
+	}
+
+	public JSONAPIPaginatedCollection<Evaluation> fetchEvaluations(String studentId, String periodId,
+			Collection<String> includes) {
+		return new JSONAPIPaginatedCollection<>(
+				(limit, offset) -> this.fetchEvaluations(studentId, periodId, limit, offset, includes));
+	}
+
+	public JSONAPIDocument<List<Evaluation>> fetchEvaluations(String studentId, String periodId, int limit, int offset,
+			Collection<String> includes) throws IOException {
+		try {
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/evaluation-services")
+					.addParameter("filter[student.id]", studentId)
+					.addParameter("filter[period.id]", periodId)
+					.addParameter("page[limit]", Integer.toString(limit))
+					.addParameter("page[offset]", Integer.toString(offset))
+					.addParameter("include", String.join(",", includes));
+			HttpGet get = new HttpGet(build.build());
+			this.addHeaders(get);
+			return this.requestDocumentCollection(get, Evaluation.class);
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}

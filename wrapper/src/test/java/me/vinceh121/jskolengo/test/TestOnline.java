@@ -5,17 +5,25 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.Timeout.ThreadMode;
 
 import me.vinceh121.jskolengo.JSkolengo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
+import me.vinceh121.jskolengo.entities.evaluation.Period;
 
 @Tag("online")
 class TestOnline {
@@ -30,18 +38,31 @@ class TestOnline {
 		skolengo.setBearerToken(
 				new String(TestOnline.class.getClassLoader().getResourceAsStream("accessToken").readAllBytes()));
 	}
-	
+
 	@BeforeEach
 	void clean(TestInfo testInfo) {
 		System.out.println("\n---------- " + testInfo.getDisplayName());
 	}
 
 	@Tag("authenticated")
+	@TestMethodOrder(OrderAnnotation.class)
 	@Nested
+	@Timeout(value = 10, unit = TimeUnit.SECONDS, threadMode = ThreadMode.SEPARATE_THREAD)
 	class Authenticated {
+
 		@Test
+		@Order(1)
 		void evaluationSettings() {
 			skolengo.fetchEvaluationsSetting().forEach(System.out::println);
+		}
+
+		@Test
+		@Order(2)
+		void evaluations() {
+			EvaluationsSetting evaluationsSetting = skolengo.fetchEvaluationsSetting().stream().findAny().get();
+			Period p = evaluationsSetting.getPeriods().get(0);
+
+			skolengo.fetchEvaluations(p.getId()).stream().limit(3).forEach(System.out::println);
 		}
 
 		@Test
@@ -58,7 +79,7 @@ class TestOnline {
 		void userInfo() throws IOException {
 			System.out.println(skolengo.fetchUserInfo().get());
 		}
-		
+
 		@Test
 		void schoolInfo() throws IOException {
 			System.out.println(skolengo.fetchSchoolInfo().get());
@@ -66,7 +87,7 @@ class TestOnline {
 	}
 
 	@Nested
-	class Anonymous {
+	static class Anonymous {
 		@Test
 		void schoolsText() {
 			skolengo.searchSchools("France").stream().limit(3).forEach(System.out::println);

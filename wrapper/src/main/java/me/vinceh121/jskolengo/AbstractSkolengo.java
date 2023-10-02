@@ -2,6 +2,8 @@ package me.vinceh121.jskolengo;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.apache.hc.client5.http.classic.methods.HttpUriRequest;
@@ -40,6 +42,7 @@ public abstract class AbstractSkolengo implements Closeable, AutoCloseable {
 			throws IOException {
 		JSONAPIDocument<List<T>> collection = this.client.execute(request, res -> {
 			byte[] data = EntityUtils.toByteArray(res.getEntity());
+			Files.write(Path.of("/tmp/test.json"), data);
 			JSONAPIDocument<List<T>> obj = converter.readDocumentCollection(data, type);
 			return obj;
 		});
