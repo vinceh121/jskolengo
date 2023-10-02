@@ -11,12 +11,12 @@ import me.vinceh121.jskolengo.entities.Attachment;
 
 @Type("lessonContent")
 public class LessonContent extends AbstractSkolengoEntity {
-	@Relationship("attachment")
-	private final List<Attachment> attachment = new ArrayList<>();
+	@Relationship("attachments")
+	private final List<Attachment> attachments = new ArrayList<>();
 	private String html, title, url;
 
-	public List<Attachment> getAttachment() {
-		return attachment;
+	public List<Attachment> getAttachments() {
+		return attachments;
 	}
 
 	public String getHtml() {
@@ -46,7 +46,7 @@ public class LessonContent extends AbstractSkolengoEntity {
 	@Override
 	public String toString() {
 		return "LessonContent [attachment="
-				+ attachment
+				+ attachments
 				+ ", html="
 				+ html
 				+ ", title="

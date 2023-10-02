@@ -1,23 +1,36 @@
 package me.vinceh121.jskolengo.entities.info;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.github.jasminb.jsonapi.annotations.Relationship;
 import com.github.jasminb.jsonapi.annotations.Type;
 
 import me.vinceh121.jskolengo.entities.AbstractSkolengoEntity;
+import me.vinceh121.jskolengo.entities.Attachment;
 import me.vinceh121.jskolengo.entities.School;
 
 @Type("news")
 public class News extends AbstractSkolengoEntity {
+	@Relationship("attachments")
+	private final List<Attachment> attachments = new ArrayList<>();
+
 	private ZonedDateTime publicationDateTime;
 	private String title, shortContent, content, url, linkedInfoUrl, linkedWebSiteUrl;
+
 	@Relationship("school")
 	private School school;
+
 	@Relationship("author")
 	private SchoolInfoAuthor author;
+
 	@Relationship("illustration")
 	private SchoolInfoFile illustration;
+
+	public List<Attachment> getAttachments() {
+		return attachments;
+	}
 
 	public ZonedDateTime getPublicationDateTime() {
 		return publicationDateTime;
