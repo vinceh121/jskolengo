@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>com.github.jasminb</groupId>
 			<artifactId>jsonapi-converter</artifactId>
-			<version>0.12</version>
+			<version>0.13</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.squareup.retrofit2</groupId>
