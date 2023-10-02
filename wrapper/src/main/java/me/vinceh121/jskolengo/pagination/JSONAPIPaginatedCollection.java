@@ -54,7 +54,8 @@ public class JSONAPIPaginatedCollection<T> implements Iterable<T> {
 
 		@Override
 		public boolean hasNext() {
-			return this.currentCollection.getLinks().getNext() != null;
+			return this.currentLocalIndex < this.currentCollection.get().size()
+					|| this.currentCollection.getLinks().getNext() != null;
 		}
 
 		@Override
