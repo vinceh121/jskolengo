@@ -130,6 +130,8 @@ public class Lesson extends AbstractSkolengoEntity {
 				+ teacher
 				+ ", subject="
 				+ subject
+				+ ", getId()="
+				+ getId()
 				+ "]";
 	}
 }

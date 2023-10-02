@@ -109,6 +109,8 @@ public class Homework extends AbstractSkolengoEntity {
 				+ submissionAllowed
 				+ ", subject="
 				+ subject
+				+ ", getId()="
+				+ getId()
 				+ "]";
 	}
 }
