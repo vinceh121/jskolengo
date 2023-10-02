@@ -12,7 +12,7 @@ import me.vinceh121.jskolengo.entities.people.Teacher;
 public class Lesson extends AbstractSkolengoEntity {
 	private LocalDateTime startDateTime, endDateTime;
 	private String title, location, locationComplement;
-	private boolean canceled;
+	private boolean canceled, anyHomeworkToDoForTheLesson, anyHomeworkToDoAfterTheLesson, anyContent;
 	@Relationship("teacher")
 	private Teacher teacher;
 	@Relationship("subject")
@@ -66,6 +66,30 @@ public class Lesson extends AbstractSkolengoEntity {
 		this.canceled = canceled;
 	}
 
+	public boolean isAnyHomeworkToDoForTheLesson() {
+		return anyHomeworkToDoForTheLesson;
+	}
+
+	public void setAnyHomeworkToDoForTheLesson(boolean anyHomeworkToDoForTheLesson) {
+		this.anyHomeworkToDoForTheLesson = anyHomeworkToDoForTheLesson;
+	}
+
+	public boolean isAnyHomeworkToDoAfterTheLesson() {
+		return anyHomeworkToDoAfterTheLesson;
+	}
+
+	public void setAnyHomeworkToDoAfterTheLesson(boolean anyHomeworkToDoAfterTheLesson) {
+		this.anyHomeworkToDoAfterTheLesson = anyHomeworkToDoAfterTheLesson;
+	}
+
+	public boolean isAnyContent() {
+		return anyContent;
+	}
+
+	public void setAnyContent(boolean anyContent) {
+		this.anyContent = anyContent;
+	}
+
 	public Teacher getTeacher() {
 		return teacher;
 	}
@@ -96,12 +120,16 @@ public class Lesson extends AbstractSkolengoEntity {
 				+ locationComplement
 				+ ", canceled="
 				+ canceled
+				+ ", anyHomeworkToDoForTheLesson="
+				+ anyHomeworkToDoForTheLesson
+				+ ", anyHomeworkToDoAfterTheLesson="
+				+ anyHomeworkToDoAfterTheLesson
+				+ ", anyContent="
+				+ anyContent
 				+ ", teacher="
 				+ teacher
 				+ ", subject="
 				+ subject
-				+ ", getId()="
-				+ getId()
 				+ "]";
 	}
 }

@@ -13,7 +13,7 @@ public class Homework extends AbstractSkolengoEntity {
 	private String title, html, onlineDeliveryUrl;
 	private LocalDateTime dueDateTime;
 	private LocalDate dueDate;
-	private boolean done, deliverWorkOnline;
+	private boolean done, deliverWorkOnline, submissionAllowed;
 	@Relationship("subject")
 	private Subject subject;
 
@@ -73,6 +73,14 @@ public class Homework extends AbstractSkolengoEntity {
 		this.deliverWorkOnline = deliverWorkOnline;
 	}
 
+	public boolean isSubmissionAllowed() {
+		return submissionAllowed;
+	}
+
+	public void setSubmissionAllowed(boolean submissionAllowed) {
+		this.submissionAllowed = submissionAllowed;
+	}
+
 	public Subject getSubject() {
 		return subject;
 	}
@@ -97,10 +105,10 @@ public class Homework extends AbstractSkolengoEntity {
 				+ done
 				+ ", deliverWorkOnline="
 				+ deliverWorkOnline
+				+ ", submissionAllowed="
+				+ submissionAllowed
 				+ ", subject="
 				+ subject
-				+ ", getId()="
-				+ getId()
 				+ "]";
 	}
 }
