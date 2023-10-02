@@ -48,7 +48,6 @@ class TestOnline {
 	@Tag("authenticated")
 	@TestMethodOrder(OrderAnnotation.class)
 	@Nested
-	@Timeout(value = 10, unit = TimeUnit.SECONDS, threadMode = ThreadMode.SEPARATE_THREAD)
 	class Authenticated {
 
 		@Test
@@ -59,6 +58,7 @@ class TestOnline {
 
 		@Test
 		@Order(2)
+		@Timeout(value = 10, unit = TimeUnit.SECONDS, threadMode = ThreadMode.SEPARATE_THREAD)
 		void evaluations() {
 			EvaluationsSetting evaluationsSetting = skolengo.fetchEvaluationsSetting().stream().findAny().get();
 			Period p = evaluationsSetting.getPeriods().get(0);
