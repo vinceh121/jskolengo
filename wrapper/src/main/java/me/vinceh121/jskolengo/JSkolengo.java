@@ -38,6 +38,10 @@ public class JSkolengo extends JSkolengoAnonymous {
 		super(client, mapper);
 	}
 
+	public JSONAPIPaginatedCollection<EvaluationsSetting> fetchEvaluationsSetting() {
+		return this.fetchEvaluationsSetting(this.readPayload().getSub());
+	}
+	
 	public JSONAPIPaginatedCollection<EvaluationsSetting> fetchEvaluationsSetting(String studentId) {
 		return this.fetchEvaluationsSetting(studentId,
 				List.of("periods", "skillsSetting", "skillsSetting.skillAcquisitionColors"));
@@ -71,6 +75,10 @@ public class JSkolengo extends JSkolengoAnonymous {
 		}
 	}
 
+	public JSONAPIPaginatedCollection<Agenda> fetchAgendas(LocalDate start, LocalDate end) {
+		return this.fetchAgendas(this.readPayload().getSub(), start, end);
+	}
+
 	public JSONAPIPaginatedCollection<Agenda> fetchAgendas(String userId, LocalDate start, LocalDate end) {
 		return new JSONAPIPaginatedCollection<>(
 				(limit, offset) -> this.fetchAgendas(userId, start, end, limit, offset, List.of("lessons",
@@ -99,6 +107,10 @@ public class JSkolengo extends JSkolengoAnonymous {
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public JSONAPIDocument<StudentUserInfo> fetchUserInfo() throws IOException {
+		return this.fetchUserInfo(this.readPayload().getSub());
 	}
 
 	public JSONAPIDocument<StudentUserInfo> fetchUserInfo(String userId) throws IOException {
@@ -136,11 +148,15 @@ public class JSkolengo extends JSkolengoAnonymous {
 		}
 	}
 
-	public JWTPayload readPayload() throws IOException {
+	public JWTPayload readPayload() {
 		String[] parts = this.bearerToken.split(Pattern.quote("."));
 		String payloadB64 = parts[1];
 		byte[] payload = Base64.getDecoder().decode(payloadB64);
-		return this.mapper.readValue(payload, JWTPayload.class);
+		try {
+			return this.mapper.readValue(payload, JWTPayload.class);
+		} catch (IOException e) {
+			throw new RuntimeException(e); // XXX shouldn't happen?
+		}
 	}
 
 	private void addHeaders(HttpRequest req) {
