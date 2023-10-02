@@ -13,10 +13,18 @@ public class Lesson extends AbstractSkolengoEntity {
 	private LocalDateTime startDateTime, endDateTime;
 	private String title, location, locationComplement;
 	private boolean canceled, anyHomeworkToDoForTheLesson, anyHomeworkToDoAfterTheLesson, anyContent;
+
 	@Relationship("teacher")
 	private Teacher teacher;
+
 	@Relationship("subject")
 	private Subject subject;
+
+	@Relationship("lessonContent")
+	private LessonContent lessonContent;
+
+	@Relationship("pedagogicContent")
+	private PedagogicContent pedagogicContent;
 
 	public LocalDateTime getStartDateTime() {
 		return startDateTime;
@@ -106,6 +114,22 @@ public class Lesson extends AbstractSkolengoEntity {
 		this.subject = subject;
 	}
 
+	public LessonContent getLessonContent() {
+		return lessonContent;
+	}
+
+	public void setLessonContent(LessonContent lessonContent) {
+		this.lessonContent = lessonContent;
+	}
+
+	public PedagogicContent getPedagogicContent() {
+		return pedagogicContent;
+	}
+
+	public void setPedagogicContent(PedagogicContent pedagogicContent) {
+		this.pedagogicContent = pedagogicContent;
+	}
+
 	@Override
 	public String toString() {
 		return "Lesson [startDateTime="
@@ -130,6 +154,10 @@ public class Lesson extends AbstractSkolengoEntity {
 				+ teacher
 				+ ", subject="
 				+ subject
+				+ ", lessonContent="
+				+ lessonContent
+				+ ", pedagogicContent="
+				+ pedagogicContent
 				+ ", getId()="
 				+ getId()
 				+ "]";

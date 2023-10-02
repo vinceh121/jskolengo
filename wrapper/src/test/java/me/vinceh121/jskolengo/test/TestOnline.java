@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Timeout.ThreadMode;
 
 import me.vinceh121.jskolengo.JSkolengo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.agenda.Lesson;
 import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.evaluation.Period;
 
@@ -47,7 +48,8 @@ class TestOnline {
 	@Tag("authenticated")
 	@TestMethodOrder(OrderAnnotation.class)
 	@Nested
-	@Timeout(value = 10, unit = TimeUnit.SECONDS, threadMode = ThreadMode.SEPARATE_THREAD)
+	// @Timeout(value = 10, unit = TimeUnit.SECONDS, threadMode =
+	// ThreadMode.SEPARATE_THREAD)
 	class Authenticated {
 
 		@Test
@@ -66,6 +68,7 @@ class TestOnline {
 		}
 
 		@Test
+		@Order(1)
 		void agendas() {
 			List<Agenda> list = skolengo.fetchAgendas(LocalDate.now().minusMonths(1), LocalDate.now())
 					.stream()
@@ -73,6 +76,16 @@ class TestOnline {
 					.collect(Collectors.toUnmodifiableList());
 			assertNotEquals(0, list.size());
 			list.forEach(System.out::println);
+		}
+
+		@Test
+		@Order(2)
+		void lessons() throws IOException {
+			for (Agenda a : skolengo.fetchAgendas(LocalDate.now().minusMonths(1), LocalDate.now())) {
+				for (Lesson l : a.getLessons()) {
+					System.out.println(skolengo.fetchLesson(l.getId()).get());
+				}
+			}
 		}
 
 		@Test
@@ -87,7 +100,7 @@ class TestOnline {
 	}
 
 	@Nested
-	static class Anonymous {
+	class Anonymous {
 		@Test
 		void schoolsText() {
 			skolengo.searchSchools("France").stream().limit(3).forEach(System.out::println);

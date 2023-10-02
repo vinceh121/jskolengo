@@ -20,6 +20,7 @@ import com.github.jasminb.jsonapi.ResourceConverter;
 import me.vinceh121.jskolengo.entities.JWTPayload;
 import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.agenda.Lesson;
 import me.vinceh121.jskolengo.entities.evaluation.Evaluation;
 import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.info.News;
@@ -140,6 +141,30 @@ public class JSkolengo extends JSkolengoAnonymous {
 			HttpGet get = new HttpGet(build.build());
 			this.addHeaders(get);
 			return this.requestDocumentCollection(get, Agenda.class);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public JSONAPIDocument<Lesson> fetchLesson(String lessonId) throws IOException {
+		return this.fetchLesson(this.readPayload().getSub(), lessonId);
+	}
+
+	public JSONAPIDocument<Lesson> fetchLesson(String studentId, String lessonId) throws IOException {
+		return this.fetchLesson(studentId, lessonId, List.of("teachers", "contents", "contents.attachments", "subject",
+				"toDoForTheLesson", "toDoForTheLesson.subject", "toDoAfterTheLesson", "toDoAfterTheLesson.subject"));
+	}
+
+	public JSONAPIDocument<Lesson> fetchLesson(String studentId, String lessonId, Collection<String> include)
+			throws IOException {
+		try {
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/lessons/")
+					.appendPath(lessonId)
+					.addParameter("include", String.join(",", include))
+					.addParameter("filter[student.id]", studentId);
+			HttpGet get = new HttpGet(build.build());
+			this.addHeaders(get);
+			return this.requestDocument(get, Lesson.class);
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}

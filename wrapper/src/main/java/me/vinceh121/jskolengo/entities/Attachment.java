@@ -2,7 +2,7 @@ package me.vinceh121.jskolengo.entities;
 
 import com.github.jasminb.jsonapi.annotations.Type;
 
-@Type("attachement")
+@Type("attachment")
 public class Attachment extends AbstractSkolengoEntity {
 	private String name, mimeType, mimeTypeLabel, url, alternativeText;
 	private long size;

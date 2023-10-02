@@ -7,6 +7,7 @@ import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
 import me.vinceh121.jskolengo.entities.agenda.Homework;
 import me.vinceh121.jskolengo.entities.agenda.Lesson;
+import me.vinceh121.jskolengo.entities.agenda.LessonContent;
 import me.vinceh121.jskolengo.entities.agenda.Subject;
 import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.evaluation.Period;
@@ -49,5 +50,6 @@ public final class SkolengoConstants {
 			AbstractPerson.class,
 			NonTeachingStaff.class,
 			OtherPerson.class,
-			Teacher.class };
+			Teacher.class,
+			LessonContent.class };
 }
