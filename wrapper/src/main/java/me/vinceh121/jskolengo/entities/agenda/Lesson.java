@@ -1,6 +1,8 @@
 package me.vinceh121.jskolengo.entities.agenda;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.github.jasminb.jsonapi.annotations.Relationship;
 import com.github.jasminb.jsonapi.annotations.Type;
@@ -10,21 +12,43 @@ import me.vinceh121.jskolengo.entities.people.Teacher;
 
 @Type("lesson")
 public class Lesson extends AbstractSkolengoEntity {
+	@Relationship("teachers")
+	private final List<Teacher> teacher = new ArrayList<>();
+
+	@Relationship("toDoAfterTheLesson")
+	private final List<Homework> toDoAfterTheLesson = new ArrayList<>();
+
+	@Relationship("toDoForTheLesson")
+	private final List<Homework> toDoForTheLesson = new ArrayList<>();
+
+	@Relationship("contents")
+	private final List<LessonContent> contents = new ArrayList<>();
+
 	private LocalDateTime startDateTime, endDateTime;
 	private String title, location, locationComplement;
 	private boolean canceled, anyHomeworkToDoForTheLesson, anyHomeworkToDoAfterTheLesson, anyContent;
 
-	@Relationship("teacher")
-	private Teacher teacher;
-
 	@Relationship("subject")
 	private Subject subject;
 
-	@Relationship("lessonContent")
-	private LessonContent lessonContent;
-
 	@Relationship("pedagogicContent")
 	private PedagogicContent pedagogicContent;
+
+	public List<Teacher> getTeacher() {
+		return teacher;
+	}
+
+	public List<Homework> getToDoAfterTheLesson() {
+		return toDoAfterTheLesson;
+	}
+
+	public List<Homework> getToDoForTheLesson() {
+		return toDoForTheLesson;
+	}
+
+	public List<LessonContent> getContents() {
+		return contents;
+	}
 
 	public LocalDateTime getStartDateTime() {
 		return startDateTime;
@@ -98,28 +122,12 @@ public class Lesson extends AbstractSkolengoEntity {
 		this.anyContent = anyContent;
 	}
 
-	public Teacher getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
-	}
-
 	public Subject getSubject() {
 		return subject;
 	}
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
-	}
-
-	public LessonContent getLessonContent() {
-		return lessonContent;
-	}
-
-	public void setLessonContent(LessonContent lessonContent) {
-		this.lessonContent = lessonContent;
 	}
 
 	public PedagogicContent getPedagogicContent() {
@@ -132,7 +140,15 @@ public class Lesson extends AbstractSkolengoEntity {
 
 	@Override
 	public String toString() {
-		return "Lesson [startDateTime="
+		return "Lesson [teacher="
+				+ teacher
+				+ ", toDoAfterTheLesson="
+				+ toDoAfterTheLesson
+				+ ", toDoForTheLesson="
+				+ toDoForTheLesson
+				+ ", contents="
+				+ contents
+				+ ", startDateTime="
 				+ startDateTime
 				+ ", endDateTime="
 				+ endDateTime
@@ -150,12 +166,8 @@ public class Lesson extends AbstractSkolengoEntity {
 				+ anyHomeworkToDoAfterTheLesson
 				+ ", anyContent="
 				+ anyContent
-				+ ", teacher="
-				+ teacher
 				+ ", subject="
 				+ subject
-				+ ", lessonContent="
-				+ lessonContent
 				+ ", pedagogicContent="
 				+ pedagogicContent
 				+ ", getId()="
