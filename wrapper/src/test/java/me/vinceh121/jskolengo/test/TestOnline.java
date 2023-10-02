@@ -48,8 +48,7 @@ class TestOnline {
 	@Tag("authenticated")
 	@TestMethodOrder(OrderAnnotation.class)
 	@Nested
-	// @Timeout(value = 10, unit = TimeUnit.SECONDS, threadMode =
-	// ThreadMode.SEPARATE_THREAD)
+	@Timeout(value = 10, unit = TimeUnit.SECONDS, threadMode = ThreadMode.SEPARATE_THREAD)
 	class Authenticated {
 
 		@Test
