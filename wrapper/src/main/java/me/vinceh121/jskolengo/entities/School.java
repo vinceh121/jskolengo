@@ -10,8 +10,9 @@ import com.github.jasminb.jsonapi.annotations.Type;
 public class School extends AbstractSkolengoEntity {
 	private final List<Service> subscribedServices = new ArrayList<>();
 	private String name, addressLine1, addressLine2, addressLine3, zipCode, city, country, homePageUrl, emsCode,
-			emsOIDCWellKnownUrl, timeZone;
+			emsOIDCWellKnownUrl, timeZone, administrativeId;
 	private Double distance;
+	private SchoolAudience schoolAudience;
 
 	public String getName() {
 		return name;
@@ -110,6 +111,14 @@ public class School extends AbstractSkolengoEntity {
 		this.timeZone = timeZone;
 	}
 
+	public String getAdministrativeId() {
+		return administrativeId;
+	}
+
+	public void setAdministrativeId(String administrativeId) {
+		this.administrativeId = administrativeId;
+	}
+
 	public Double getDistance() {
 		return distance;
 	}
@@ -122,10 +131,18 @@ public class School extends AbstractSkolengoEntity {
 		return subscribedServices;
 	}
 
+	public SchoolAudience getSchoolAudience() {
+		return schoolAudience;
+	}
+
+	public void setSchoolAudience(SchoolAudience schoolAudience) {
+		this.schoolAudience = schoolAudience;
+	}
+
 	@Override
 	public String toString() {
-		return "School [id="
-				+ this.getId()
+		return "School [subscribedServices="
+				+ subscribedServices
 				+ ", name="
 				+ name
 				+ ", addressLine1="
@@ -146,6 +163,14 @@ public class School extends AbstractSkolengoEntity {
 				+ emsCode
 				+ ", emsOIDCWellKnownUrl="
 				+ emsOIDCWellKnownUrl
+				+ ", timeZone="
+				+ timeZone
+				+ ", administrativeId="
+				+ administrativeId
+				+ ", distance="
+				+ distance
+				+ ", schoolAudience="
+				+ schoolAudience
 				+ "]";
 	}
 }

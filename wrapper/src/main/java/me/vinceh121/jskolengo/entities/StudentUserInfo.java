@@ -9,7 +9,7 @@ import com.github.jasminb.jsonapi.annotations.Type;
 @Type("studentUserInfo")
 public class StudentUserInfo extends AbstractSkolengoEntity {
 	private final List<Permission> permissions = new ArrayList<>();
-	private String className, dateOfBirth, regime, lastName, firstName, photoUrl, externalMail, mobilePhone;
+	private String className, dateOfBirth, regime, lastName, firstName, photoUrl, externalMail, mobilePhone, audienceId;
 	@Relationship("school")
 	private School school;
 
@@ -77,6 +77,14 @@ public class StudentUserInfo extends AbstractSkolengoEntity {
 		this.mobilePhone = mobilePhone;
 	}
 
+	public String getAudienceId() {
+		return audienceId;
+	}
+
+	public void setAudienceId(String audienceId) {
+		this.audienceId = audienceId;
+	}
+
 	public List<Permission> getPermissions() {
 		return permissions;
 	}
@@ -109,8 +117,10 @@ public class StudentUserInfo extends AbstractSkolengoEntity {
 				+ externalMail
 				+ ", mobilePhone="
 				+ mobilePhone
-				+ ", getId()="
-				+ getId()
+				+ ", audienceId="
+				+ audienceId
+				+ ", school="
+				+ school
 				+ "]";
 	}
 }
