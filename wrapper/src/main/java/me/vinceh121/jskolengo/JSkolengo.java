@@ -20,6 +20,7 @@ import com.github.jasminb.jsonapi.ResourceConverter;
 import me.vinceh121.jskolengo.entities.JWTPayload;
 import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.agenda.Homework;
 import me.vinceh121.jskolengo.entities.agenda.Lesson;
 import me.vinceh121.jskolengo.entities.evaluation.Evaluation;
 import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
@@ -38,6 +39,68 @@ public class JSkolengo extends JSkolengoAnonymous {
 
 	public JSkolengo(CloseableHttpClient client, ObjectMapper mapper) {
 		super(client, mapper);
+	}
+
+	public JSONAPIDocument<Homework> fetchHomeworkAssignment(String homeworkId) throws IOException {
+		return this.fetchHomeworkAssignment(this.readPayload().getSub(), homeworkId);
+	}
+
+	public JSONAPIDocument<Homework> fetchHomeworkAssignment(String studentId, String homeworkId) throws IOException {
+		return this.fetchHomeworkAssignment(studentId, homeworkId,
+				List.of("subject", "teacher", "pedagogicContent", "individualCorrectedWork",
+						"individualCorrectedWork.attachments", "individualCorrectedWork.audio", "commonCorrectedWork",
+						"commonCorrectedWork.attachments", "commonCorrectedWork.audio",
+						"commonCorrectedWork.pedagogicContent", "attachments", "audio", "teacher.person"));
+	}
+
+	public JSONAPIDocument<Homework> fetchHomeworkAssignment(String studentId, String homeworkId,
+			Collection<String> includes) throws IOException {
+		try {
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/homework-assignments/")
+					.appendPath(homeworkId)
+					.addParameter("filter[student.id]", studentId)
+					.addParameter("include", String.join(",", includes));
+			HttpGet get = new HttpGet(build.build());
+			this.addHeaders(get);
+			return this.requestDocument(get, Homework.class);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public JSONAPIPaginatedCollection<Homework> fetchHomeworkAssignments(LocalDate startDate, LocalDate endDate) {
+		return new JSONAPIPaginatedCollection<>((limit, offset) -> this
+				.fetchHomeworkAssignments(this.readPayload().getSub(), startDate, endDate, limit, offset));
+	}
+
+	public JSONAPIPaginatedCollection<Homework> fetchHomeworkAssignments(String studentId, LocalDate startDate,
+			LocalDate endDate) {
+		return new JSONAPIPaginatedCollection<>(
+				(limit, offset) -> this.fetchHomeworkAssignments(studentId, startDate, endDate, limit, offset));
+	}
+
+	public JSONAPIDocument<List<Homework>> fetchHomeworkAssignments(String studentId, LocalDate startDate,
+			LocalDate endDate, int limit, int offset) throws IOException {
+		return this.fetchHomeworkAssignments(studentId, startDate, endDate, limit, offset,
+				List.of("subject", "teacher", "teacher.person"));
+	}
+
+	public JSONAPIDocument<List<Homework>> fetchHomeworkAssignments(String studentId, LocalDate startDate,
+			LocalDate endDate, int limit, int offset, Collection<String> includes) throws IOException {
+		try {
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/homework-assignments")
+					.addParameter("filter[student.id]", studentId)
+					.addParameter("filter[dueDate][GE]", startDate.toString())
+					.addParameter("filter[dueDate][LE]", endDate.toString())
+					.addParameter("page[limit]", Integer.toString(limit))
+					.addParameter("page[offset]", Integer.toString(offset))
+					.addParameter("include", String.join(",", includes));
+			HttpGet get = new HttpGet(build.build());
+			this.addHeaders(get);
+			return this.requestDocumentCollection(get, Homework.class);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public JSONAPIPaginatedCollection<EvaluationsSetting> fetchEvaluationsSetting() {

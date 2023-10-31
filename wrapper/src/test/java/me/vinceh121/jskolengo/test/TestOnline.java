@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Timeout.ThreadMode;
 
 import me.vinceh121.jskolengo.JSkolengo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.agenda.Homework;
 import me.vinceh121.jskolengo.entities.agenda.Lesson;
 import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.evaluation.Period;
@@ -52,6 +53,25 @@ class TestOnline {
 
 		@Test
 		@Order(1)
+		void homeworkAssignments() throws IOException {
+			skolengo.fetchHomeworkAssignments(LocalDate.now().minusDays(14), LocalDate.now().plusDays(14))
+					.stream()
+					.limit(3)
+					.forEach(System.out::println);
+		}
+		
+		@Test
+		@Order(2)
+		void homeworkAssignment() throws IOException {
+			for (Agenda agenda : skolengo.fetchAgendas(LocalDate.now().plusDays(14), LocalDate.now().plusDays(14))) {
+				for (Homework homework : agenda.getHomeworkAssignments()) {
+					System.out.println(skolengo.fetchHomeworkAssignment(homework.getId()).get());
+				}
+			}
+		}
+
+		@Test
+		@Order(1)
 		void evaluationSettings() {
 			skolengo.fetchEvaluationsSetting().forEach(System.out::println);
 		}
@@ -71,7 +91,7 @@ class TestOnline {
 		void agendas() {
 			List<Agenda> list = skolengo.fetchAgendas(LocalDate.now().minusMonths(1), LocalDate.now())
 					.stream()
-					.limit(3)
+					 .limit(3)
 					.collect(Collectors.toUnmodifiableList());
 			assertNotEquals(0, list.size());
 			list.forEach(System.out::println);
