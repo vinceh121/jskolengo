@@ -14,6 +14,15 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>vinceh121-snapshots</id>
+			<name>vinceh121's Maven repository</name>
+			<url>https://maven.vinceh121.me/snapshots</url>
+		</repository>
+	</distributionManagement>
+
 	<modules>
 		<module>wrapper</module>
 		<module>auth</module>
