@@ -31,16 +31,6 @@ import me.vinceh121.jskolengo.entities.evaluation.Period;
 class TestOnline {
 	static JSkolengo skolengo = new JSkolengo();
 
-	@BeforeAll
-	static void init() throws IOException {
-		skolengo.setSchoolId(
-				new String(TestOnline.class.getClassLoader().getResourceAsStream("schoolId").readAllBytes()));
-		skolengo.setEmsCode(
-				new String(TestOnline.class.getClassLoader().getResourceAsStream("emsCode").readAllBytes()));
-		skolengo.setBearerToken(
-				new String(TestOnline.class.getClassLoader().getResourceAsStream("accessToken").readAllBytes()));
-	}
-
 	@BeforeEach
 	void clean(TestInfo testInfo) {
 		System.out.println("\n---------- " + testInfo.getDisplayName());
@@ -51,6 +41,16 @@ class TestOnline {
 	@Nested
 	class Authenticated {
 
+		@BeforeAll
+		void init() throws IOException {
+			skolengo.setSchoolId(
+					new String(TestOnline.class.getClassLoader().getResourceAsStream("schoolId").readAllBytes()));
+			skolengo.setEmsCode(
+					new String(TestOnline.class.getClassLoader().getResourceAsStream("emsCode").readAllBytes()));
+			skolengo.setBearerToken(
+					new String(TestOnline.class.getClassLoader().getResourceAsStream("accessToken").readAllBytes()));
+		}
+
 		@Test
 		@Order(1)
 		void homeworkAssignments() throws IOException {
@@ -59,7 +59,7 @@ class TestOnline {
 					.limit(3)
 					.forEach(System.out::println);
 		}
-		
+
 		@Test
 		@Order(2)
 		void homeworkAssignment() throws IOException {
@@ -91,7 +91,7 @@ class TestOnline {
 		void agendas() {
 			List<Agenda> list = skolengo.fetchAgendas(LocalDate.now().minusMonths(1), LocalDate.now())
 					.stream()
-					 .limit(3)
+					.limit(3)
 					.collect(Collectors.toUnmodifiableList());
 			assertNotEquals(0, list.size());
 			list.forEach(System.out::println);
