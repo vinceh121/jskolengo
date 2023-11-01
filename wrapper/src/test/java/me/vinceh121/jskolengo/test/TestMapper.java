@@ -3,11 +3,14 @@ package me.vinceh121.jskolengo.test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
+
+import com.github.jasminb.jsonapi.annotations.Type;
 
 import me.vinceh121.jskolengo.SkolengoConstants;
 import me.vinceh121.jskolengo.entities.AbstractSkolengoEntity;
@@ -19,8 +22,12 @@ class TestMapper {
 	void testClassList() {
 		Reflections ref = new Reflections("me.vinceh121.jskolengo.entities", Scanners.SubTypes);
 		List<Class<? extends AbstractSkolengoEntity>> expected
-				= new ArrayList<>(ref.getSubTypesOf(AbstractSkolengoEntity.class));
+				= new ArrayList<>(ref.getSubTypesOf(AbstractSkolengoEntity.class)).stream()
+						.filter(c -> c.isAnnotationPresent(Type.class))
+						.collect(Collectors.toList());
+
 		List<Class<? extends AbstractSkolengoEntity>> actual = new ArrayList<>();
+
 		for (Class<?> o : SkolengoConstants.ENTITY_CLASSES) {
 			actual.add((Class<? extends AbstractSkolengoEntity>) o);
 		}

@@ -5,6 +5,8 @@ import me.vinceh121.jskolengo.entities.School;
 import me.vinceh121.jskolengo.entities.SkoAppConfig;
 import me.vinceh121.jskolengo.entities.StudentUserInfo;
 import me.vinceh121.jskolengo.entities.agenda.Agenda;
+import me.vinceh121.jskolengo.entities.agenda.Audio;
+import me.vinceh121.jskolengo.entities.agenda.CorrectedWork;
 import me.vinceh121.jskolengo.entities.agenda.Homework;
 import me.vinceh121.jskolengo.entities.agenda.Lesson;
 import me.vinceh121.jskolengo.entities.agenda.LessonContent;
@@ -38,6 +40,8 @@ public final class SkolengoConstants {
 		SkoAppConfig.class,
 		StudentUserInfo.class,
 		Agenda.class,
+		Audio.class,
+		CorrectedWork.class,
 		Homework.class,
 		Lesson.class,
 		LessonContent.class,
