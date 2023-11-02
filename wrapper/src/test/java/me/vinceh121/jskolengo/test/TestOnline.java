@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.Timeout.ThreadMode;
@@ -39,6 +41,7 @@ class TestOnline {
 	@Tag("authenticated")
 	@TestMethodOrder(OrderAnnotation.class)
 	@Nested
+	@TestInstance(Lifecycle.PER_CLASS)
 	class Authenticated {
 
 		@BeforeAll

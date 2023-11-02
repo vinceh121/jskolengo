@@ -92,6 +92,9 @@ public class JSkolengo extends JSkolengoAnonymous {
 					.addParameter("filter[student.id]", studentId)
 					.addParameter("filter[dueDate][GE]", startDate.toString())
 					.addParameter("filter[dueDate][LE]", endDate.toString())
+					// fields HAVE to be specified here, unless the backend will fail with an NPE
+					.addParameter("fields[homework]", "title,done,dueDateTime")
+					.addParameter("fields[subject]", "label,color")
 					.addParameter("page[limit]", Integer.toString(limit))
 					.addParameter("page[offset]", Integer.toString(offset))
 					.addParameter("include", String.join(",", includes));
