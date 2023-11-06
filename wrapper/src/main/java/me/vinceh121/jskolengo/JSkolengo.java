@@ -56,7 +56,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<Homework> fetchHomeworkAssignment(String studentId, String homeworkId,
 			Collection<String> includes) throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/homework-assignments/")
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/homework-assignments")
 					.appendPath(homeworkId)
 					.addParameter("filter[student.id]", studentId)
 					.addParameter("include", String.join(",", includes));
@@ -224,7 +224,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<Lesson> fetchLesson(String studentId, String lessonId, Collection<String> include)
 			throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/lessons/")
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/lessons")
 					.appendPath(lessonId)
 					.addParameter("include", String.join(",", include))
 					.addParameter("filter[student.id]", studentId);
@@ -247,7 +247,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<StudentUserInfo> fetchUserInfo(String userId, Collection<String> include)
 			throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/users-info/")
+			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/users-info")
 					.appendPath(userId)
 					.addParameter("include", String.join(",", include));
 			HttpGet get = new HttpGet(build.build());
@@ -286,7 +286,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 		}
 	}
 
-	private void addHeaders(HttpRequest req) {
+	protected void addHeaders(HttpRequest req) {
 		if (this.bearerToken != null)
 			req.addHeader("Authorization", "Bearer " + this.bearerToken);
 		if (this.schoolId != null)
