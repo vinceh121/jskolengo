@@ -1,5 +1,6 @@
 package me.vinceh121.jskolengo.entities.evaluation;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class EvaluationDetail extends AbstractSkolengoEntity {
 	private String title, topic;
 	private float coefficient;
 	private Float min, max, average, scale;
+	private LocalDateTime dateTime;
 	private EvaluationService evaluationService;
 	private EvaluationResult evaluationResult;
 
@@ -69,6 +71,14 @@ public class EvaluationDetail extends AbstractSkolengoEntity {
 		this.scale = scale;
 	}
 
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
 	public EvaluationService getEvaluationService() {
 		return evaluationService;
 	}
@@ -91,7 +101,7 @@ public class EvaluationDetail extends AbstractSkolengoEntity {
 
 	@Override
 	public String toString() {
-		return "EvaluationDetails [subSkills="
+		return "EvaluationDetail [subSkills="
 				+ subSkills
 				+ ", title="
 				+ title
@@ -107,6 +117,8 @@ public class EvaluationDetail extends AbstractSkolengoEntity {
 				+ average
 				+ ", scale="
 				+ scale
+				+ ", dateTime="
+				+ dateTime
 				+ ", evaluationService="
 				+ evaluationService
 				+ ", evaluationResult="
