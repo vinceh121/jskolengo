@@ -17,6 +17,7 @@ import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.evaluation.Period;
 import me.vinceh121.jskolengo.entities.evaluation.SkillAcquisitionColors;
 import me.vinceh121.jskolengo.entities.evaluation.SkillsSetting;
+import me.vinceh121.jskolengo.entities.info.Announcement;
 import me.vinceh121.jskolengo.entities.info.News;
 import me.vinceh121.jskolengo.entities.info.SchoolInfoAuthor;
 import me.vinceh121.jskolengo.entities.info.SchoolInfoFile;
@@ -35,29 +36,30 @@ public final class SkolengoConstants {
 			OIDC_CALLBACK = "skoapp-prod://sign-in-callback";
 
 	public static final Class<?>[] ENTITY_CLASSES = new Class<?>[] {
-		Attachment.class,
-		School.class,
-		SkoAppConfig.class,
-		StudentUserInfo.class,
-		Agenda.class,
-		Audio.class,
-		CorrectedWork.class,
-		Homework.class,
-		Lesson.class,
-		LessonContent.class,
-		PedagogicContent.class,
-		Subject.class,
-		Evaluation.class,
-		EvaluationsSetting.class,
-		Period.class,
-		SkillAcquisitionColors.class,
-		SkillsSetting.class,
-		News.class,
-		SchoolInfoAuthor.class,
-		SchoolInfoFile.class,
-		SchoolInfoTechnicalUser.class,
-		AbstractPerson.class,
-		NonTeachingStaff.class,
-		OtherPerson.class,
-		Teacher.class };
+			Attachment.class,
+			School.class,
+			SkoAppConfig.class,
+			StudentUserInfo.class,
+			Agenda.class,
+			Audio.class,
+			CorrectedWork.class,
+			Homework.class,
+			Lesson.class,
+			LessonContent.class,
+			PedagogicContent.class,
+			Subject.class,
+			Evaluation.class,
+			EvaluationsSetting.class,
+			Period.class,
+			SkillAcquisitionColors.class,
+			SkillsSetting.class,
+			Announcement.class,
+			News.class,
+			SchoolInfoAuthor.class,
+			SchoolInfoFile.class,
+			SchoolInfoTechnicalUser.class,
+			AbstractPerson.class,
+			NonTeachingStaff.class,
+			OtherPerson.class,
+			Teacher.class, };
 }
