@@ -33,7 +33,7 @@ public class JSkolengoAnonymous extends AbstractSkolengo {
 
 	public JSONAPIDocument<SkoAppConfig> fetchConfig() throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/sko-app-configs/current");
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/sko-app-configs/current");
 			HttpGet get = new HttpGet(build.build());
 			return this.requestDocument(get, SkoAppConfig.class);
 		} catch (URISyntaxException e) {
@@ -48,7 +48,7 @@ public class JSkolengoAnonymous extends AbstractSkolengo {
 	public JSONAPIDocument<List<School>> searchSchools(double lat, double lon, int limit, int offset)
 			throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/schools")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/schools")
 					.addParameter("filter[lat]", String.valueOf(lat))
 					.addParameter("filter[lon]", String.valueOf(lon))
 					.addParameter("page[limit]", String.valueOf(limit))
@@ -66,7 +66,7 @@ public class JSkolengoAnonymous extends AbstractSkolengo {
 
 	public JSONAPIDocument<List<School>> searchSchools(String text, int limit, int offset) throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/schools")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/schools")
 					.addParameter("filter[text]", text)
 					.addParameter("page[limit]", String.valueOf(limit))
 					.addParameter("page[offset]", String.valueOf(offset));

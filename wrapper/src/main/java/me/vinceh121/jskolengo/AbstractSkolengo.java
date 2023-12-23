@@ -16,6 +16,7 @@ public abstract class AbstractSkolengo implements Closeable, AutoCloseable {
 	protected final CloseableHttpClient client;
 	protected final ObjectMapper mapper;
 	protected final ResourceConverter converter;
+	protected String baseUrl = SkolengoConstants.BASE_URL;
 
 	public AbstractSkolengo(CloseableHttpClient client, ObjectMapper mapper) {
 		this(client, mapper, new ResourceConverter(mapper, SkolengoConstants.ENTITY_CLASSES));
@@ -56,6 +57,14 @@ public abstract class AbstractSkolengo implements Closeable, AutoCloseable {
 
 	public ResourceConverter getConverter() {
 		return this.converter;
+	}
+
+	public String getBaseUrl() {
+		return this.baseUrl;
+	}
+
+	public void setBaseUrl(final String baseUrl) {
+		this.baseUrl = baseUrl;
 	}
 
 	@Override

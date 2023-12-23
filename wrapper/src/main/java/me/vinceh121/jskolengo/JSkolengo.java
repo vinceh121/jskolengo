@@ -56,7 +56,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<Homework> fetchHomeworkAssignment(String studentId, String homeworkId,
 			Collection<String> includes) throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/homework-assignments")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/homework-assignments")
 					.appendPath(homeworkId)
 					.addParameter("filter[student.id]", studentId)
 					.addParameter("include", String.join(",", includes));
@@ -88,7 +88,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<List<Homework>> fetchHomeworkAssignments(String studentId, LocalDate startDate,
 			LocalDate endDate, int limit, int offset, Collection<String> includes) throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/homework-assignments")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/homework-assignments")
 					.addParameter("filter[student.id]", studentId)
 					.addParameter("filter[dueDate][GE]", startDate.toString())
 					.addParameter("filter[dueDate][LE]", endDate.toString())
@@ -130,7 +130,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<List<EvaluationsSetting>> fetchEvaluationsSetting(String studentId, int limit, int offset,
 			Collection<String> includes) throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/evaluations-settings")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/evaluations-settings")
 					.addParameter("filter[student.id]", studentId)
 					.addParameter("page[limit]", Integer.toString(limit))
 					.addParameter("page[offset]", Integer.toString(offset))
@@ -164,7 +164,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<List<Evaluation>> fetchEvaluations(String studentId, String periodId, int limit, int offset,
 			Collection<String> includes) throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/evaluation-services")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/evaluation-services")
 					.addParameter("filter[student.id]", studentId)
 					.addParameter("filter[period.id]", periodId)
 					.addParameter("page[limit]", Integer.toString(limit))
@@ -197,7 +197,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<List<Agenda>> fetchAgendas(String userId, LocalDate start, LocalDate end, int limit,
 			int offset, Collection<String> include) throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/agendas")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/agendas")
 					.addParameter("include", String.join(",", include))
 					.addParameter("filter[student.id]", userId)
 					.addParameter("filter[date][GE]", start.toString())
@@ -224,7 +224,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<Lesson> fetchLesson(String studentId, String lessonId, Collection<String> include)
 			throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/lessons")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/lessons")
 					.appendPath(lessonId)
 					.addParameter("include", String.join(",", include))
 					.addParameter("filter[student.id]", studentId);
@@ -247,7 +247,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 	public JSONAPIDocument<StudentUserInfo> fetchUserInfo(String userId, Collection<String> include)
 			throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/users-info")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/users-info")
 					.appendPath(userId)
 					.addParameter("include", String.join(",", include));
 			HttpGet get = new HttpGet(build.build());
@@ -265,7 +265,7 @@ public class JSkolengo extends JSkolengoAnonymous {
 
 	public JSONAPIDocument<List<News>> fetchSchoolInfo(Collection<String> include) throws IOException {
 		try {
-			URIBuilder build = new URIBuilder(SkolengoConstants.BASE_URL).appendPath("/schools-info")
+			URIBuilder build = new URIBuilder(this.baseUrl).appendPath("/schools-info")
 					.addParameter("include", String.join(",", include));
 			HttpGet get = new HttpGet(build.build());
 			this.addHeaders(get);
