@@ -46,6 +46,6 @@ public class Announcement extends News {
 	}
 	
 	public enum Level { // XXX fill up
-		INFO;
+		INFO, ALERT;
 	}
 }
