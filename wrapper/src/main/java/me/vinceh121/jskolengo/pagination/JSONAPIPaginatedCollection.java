@@ -22,11 +22,17 @@ public class JSONAPIPaginatedCollection<T> implements Iterable<T> {
 	}
 
 	public Stream<T> stream() {
-		Iterator<T> iter = this.iterator();
+		JSONAPIPaginatedCollection<T>.PaginatedIterator iter
+				= (JSONAPIPaginatedCollection<T>.PaginatedIterator) this.iterator();
+
+		if (iter.currentCollection.get().size() == 0) {
+			return Stream.empty();
+		}
+
 		// XXX This usage doesn't respect the hasNext and next contracts since we don't
 		// check ordering.
 		// Is this actually liable to cause problems?
-		T seed = ((JSONAPIPaginatedCollection<T>.PaginatedIterator) iter).peek();
+		T seed = iter.peek();
 		return Stream.iterate(seed, e -> iter.hasNext(), e -> iter.next());
 	}
 
