@@ -19,6 +19,8 @@ import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.evaluation.Period;
 import me.vinceh121.jskolengo.entities.evaluation.SkillAcquisitionColors;
 import me.vinceh121.jskolengo.entities.evaluation.SkillsSetting;
+import me.vinceh121.jskolengo.entities.evaluation.SubSkill;
+import me.vinceh121.jskolengo.entities.evaluation.SubSkillEvaluationResult;
 import me.vinceh121.jskolengo.entities.info.Announcement;
 import me.vinceh121.jskolengo.entities.info.News;
 import me.vinceh121.jskolengo.entities.info.SchoolInfoAuthor;
@@ -59,6 +61,8 @@ public final class SkolengoConstants {
 			Period.class,
 			SkillAcquisitionColors.class,
 			SkillsSetting.class,
+			SubSkill.class,
+			SubSkillEvaluationResult.class,
 			Announcement.class,
 			News.class,
 			SchoolInfoAuthor.class,
