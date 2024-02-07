@@ -1,7 +1,10 @@
 package me.vinceh121.jskolengo.entities.evaluation;
 
+import com.github.jasminb.jsonapi.annotations.Type;
+
 import me.vinceh121.jskolengo.entities.AbstractSkolengoEntity;
 
+@Type("subSkillEvaluationResult")
 public class SubSkillEvaluationResult extends AbstractSkolengoEntity {
 	private String level;
 	private SubSkill subSkill;

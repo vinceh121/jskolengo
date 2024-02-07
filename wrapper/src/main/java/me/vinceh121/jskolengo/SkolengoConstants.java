@@ -13,6 +13,8 @@ import me.vinceh121.jskolengo.entities.agenda.LessonContent;
 import me.vinceh121.jskolengo.entities.agenda.PedagogicContent;
 import me.vinceh121.jskolengo.entities.agenda.Subject;
 import me.vinceh121.jskolengo.entities.evaluation.Evaluation;
+import me.vinceh121.jskolengo.entities.evaluation.EvaluationResult;
+import me.vinceh121.jskolengo.entities.evaluation.EvaluationService;
 import me.vinceh121.jskolengo.entities.evaluation.EvaluationsSetting;
 import me.vinceh121.jskolengo.entities.evaluation.Period;
 import me.vinceh121.jskolengo.entities.evaluation.SkillAcquisitionColors;
@@ -51,6 +53,8 @@ public final class SkolengoConstants {
 			PedagogicContent.class,
 			Subject.class,
 			Evaluation.class,
+			EvaluationResult.class,
+			EvaluationService.class,
 			EvaluationsSetting.class,
 			Period.class,
 			SkillAcquisitionColors.class,

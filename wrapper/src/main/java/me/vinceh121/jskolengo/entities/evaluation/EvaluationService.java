@@ -3,13 +3,24 @@ package me.vinceh121.jskolengo.entities.evaluation;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.jasminb.jsonapi.annotations.Relationship;
+import com.github.jasminb.jsonapi.annotations.Type;
+
 import me.vinceh121.jskolengo.entities.AbstractSkolengoEntity;
 import me.vinceh121.jskolengo.entities.agenda.Subject;
 import me.vinceh121.jskolengo.entities.people.AbstractPerson;
 
+@Type("evaluationService")
 public class EvaluationService extends AbstractSkolengoEntity {
+	@Relationship("teachers")
 	private final List<AbstractPerson> teachers = new ArrayList<>();
+
+	@Relationship("evaluations")
+	private final List<Evaluation> evaluations = new ArrayList<>();
+
 	private Float coefficient, average, scale, studentAverage;
+
+	@Relationship("subject")
 	private Subject subject;
 
 	public Float getCoefficient() {
@@ -56,6 +67,10 @@ public class EvaluationService extends AbstractSkolengoEntity {
 		return teachers;
 	}
 
+	public List<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+
 	@Override
 	public String toString() {
 		return "EvaluationService [teachers="
@@ -70,6 +85,8 @@ public class EvaluationService extends AbstractSkolengoEntity {
 				+ studentAverage
 				+ ", subject="
 				+ subject
+				+ ", evaluations="
+				+ evaluations
 				+ ", getId()="
 				+ getId()
 				+ "]";
