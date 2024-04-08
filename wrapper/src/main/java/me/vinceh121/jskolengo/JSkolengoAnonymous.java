@@ -20,7 +20,7 @@ import me.vinceh121.jskolengo.pagination.JSONAPIPaginatedCollection;
 
 public class JSkolengoAnonymous extends AbstractSkolengo {
 	public JSkolengoAnonymous() {
-		super(HttpClients.custom().setRetryStrategy(new SkolengoRetryStrategy()).build(),
+		super(HttpClients.custom().setRetryStrategy(new SkolengoRetryStrategy()).setUserAgent("jskolengo/0.0.1-SNAPSHOT").build(),
 				new ObjectMapper().registerModule(new JavaTimeModule()));
 	}
 
