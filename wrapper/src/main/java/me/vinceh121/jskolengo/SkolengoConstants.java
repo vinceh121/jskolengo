@@ -29,6 +29,7 @@ import me.vinceh121.jskolengo.entities.info.SchoolInfoTechnicalUser;
 import me.vinceh121.jskolengo.entities.people.AbstractPerson;
 import me.vinceh121.jskolengo.entities.people.NonTeachingStaff;
 import me.vinceh121.jskolengo.entities.people.OtherPerson;
+import me.vinceh121.jskolengo.entities.people.Student;
 import me.vinceh121.jskolengo.entities.people.Teacher;
 
 public final class SkolengoConstants {
@@ -71,5 +72,6 @@ public final class SkolengoConstants {
 			AbstractPerson.class,
 			NonTeachingStaff.class,
 			OtherPerson.class,
+			Student.class,
 			Teacher.class, };
 }
